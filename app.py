@@ -22,12 +22,11 @@ def add_item():
 @app.route("/success")
 def success():
     results = []
- 
     qry = db_session.query(Items)
     results = qry.all()
-
-    return str(results)
-  
-
+    res = ["ID {}, Name {}, Quantity {}, Description {}, Time {} --- ".format(item.id, item.name, item.quantity, item.description, item.date_added) for item in results]
+    return_str = "".join(res)
+    return return_str
+    
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5001, debug=True)
